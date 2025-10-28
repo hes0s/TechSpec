@@ -1,0 +1,21 @@
+
+<h2>Product Catalog</h2>
+
+@if (items.length===0) {
+    <div>
+        <p>No products available.</p>
+    </div>
+}
+
+@if (items.length > 0) {
+    @for (item of items; track $index) {
+        <div class="product" style="border:1px solid #ccc; padding:10px; margin:10px; width:250px; display:inline-block; vertical-align:top;">
+            <img src="item.imageUrl" alt="item.name" style="width:100%; height:auto; object-fit:contain;">
+            <h3>{{ item.name }}</h3>
+            <p>{{ item.description }}</p>
+            <p><strong>Price: ${{ item.price }}</strong></p>
+        </div>
+    }
+}
+
+
