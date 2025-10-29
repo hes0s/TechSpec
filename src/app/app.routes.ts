@@ -11,4 +11,8 @@ export const routes: Routes = [{
 {
     path: 'catalog',
     loadComponent: () => import('./components/catalog-page/connector').then(c => c.CatalogPage)
+},
+{
+    path: 'product/:id',
+    loadComponent: () => import('./components/product-page/connector').then(c => c.ProductPage)
 }];

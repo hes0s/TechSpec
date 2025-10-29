@@ -1,21 +1,26 @@
+<h2 class="page-title">Product Catalog</h2>
 
-<h2>Product Catalog</h2>
-
-@if (items.length===0) {
-    <div>
-        <p>No products available.</p>
-    </div>
+@if (items.length === 0) {
+  <div>
+    <p>No products available.</p>
+  </div>
 }
 
 @if (items.length > 0) {
+  <section class="products row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
     @for (item of items; track $index) {
-        <div class="product" style="border:1px solid #ccc; padding:10px; margin:10px; width:250px; display:inline-block; vertical-align:top;">
-            <img src="item.imageUrl" alt="item.name" style="width:100%; height:auto; object-fit:contain;">
-            <h3>{{ item.name }}</h3>
-            <p>{{ item.description }}</p>
-            <p><strong>Price: ${{ item.price }}</strong></p>
+      <div class="col">
+        <a [routerLink]="['/product', item.id]" class="text-decoration-none text-dark">
+        <div class="product-card card h-100 text-center p-3">
+          <img width="198" height="198" [src]="item.imageUrl" alt="{{ item.name }}" class="card-img-top" />
+          <div class="card-body">
+            <h3 class="card-title fs-5">{{ item.name }}</h3>
+            <p class="price fw-bold">{{ item.price }}</p>
+            <button class="btn btn-primary">Add to Cart</button>
+          </div>
         </div>
+        </a>
+      </div>
     }
+  </section>
 }
-
-

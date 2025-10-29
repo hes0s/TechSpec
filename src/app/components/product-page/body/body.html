@@ -1,0 +1,18 @@
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh; background-color: #f8f9fa;">
+  <div class="card p-4 shadow-sm text-center" style="border-radius: 20px; max-width: 400px; background-color: white;">
+    <h2 class="card-title mb-3" style="color: #0d6efd; font-weight: 600;">{{ product?.name }}</h2>
+    <img [src]="product?.imageUrl || 'https://via.placeholder.com/250x150'" 
+         alt="{{ product?.name }}" 
+         class="img-fluid rounded mb-3" 
+         style="object-fit: cover; border-radius: 15px;">
+    <h4 class="mb-3" style="color: #0d6efd;">{{ product?.price }}$</h4>
+    <p class="text-muted mb-4" style="font-size: 0.9rem;">{{ product?.description }}</p>
+    <div class="d-flex justify-content-center mt-4">
+  <button class="btn btn-outline-primary" (click)="goBack()" style="border-radius: 50px; width: 120px;">
+    Înapoi
+  </button>
+</div>
+
+  </div>
+
+</div>
