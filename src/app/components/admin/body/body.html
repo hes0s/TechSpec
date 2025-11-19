@@ -1,0 +1,101 @@
+
+@if (islogged) {
+<div class="container mt-4">
+  <h2>Gestionare Produse</h2>
+
+  <div class="card mb-4">
+    <div class="card-body">
+      <h3>{{ isEditing ? 'Editează Produs' : 'Adaugă Produs Nou' }}</h3>
+      
+      <form (ngSubmit)="saveProduct()">
+        <div class="mb-3">
+          <label class="form-label">Nume Produs</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            [(ngModel)]="productForm.name"
+            name="name"
+            required>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Descriere</label>
+          <textarea 
+            class="form-control" 
+            [(ngModel)]="productForm.description"
+            name="description"
+            rows="3"></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Preț </label>
+          <input 
+            type="number" 
+            class="form-control" 
+            [(ngModel)]="productForm.price"
+            name="price"
+            required>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">URL Imagine</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            [(ngModel)]="productForm.imageUrl"
+            name="imageUrl">
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+          {{ isEditing ? 'Actualizează' : 'Adaugă' }}
+        </button>
+        
+        @if (isEditing) {
+          <button type="button" class="btn btn-secondary ms-2" (click)="resetForm()">
+            Anulează
+          </button>
+        }
+      </form>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <h3>Lista Produse</h3>
+      
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Nume</th>
+            <th>Descriere</th>
+            <th>Preț</th>
+            <th>Acțiuni</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (product of products; track product.id) {
+            <tr>
+              <td>{{ product.name }}</td>
+              <td>{{ product.description }}</td>
+              <td>{{ product.price }}$</td>
+              <td>
+                <button 
+                  class="btn btn-sm btn-warning me-2" 
+                  (click)="editProduct(product)">
+                  Editează
+                </button>
+                <button 
+                  class="btn btn-sm btn-danger" 
+                  (click)="deleteProduct(product.id)">
+                  Șterge
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+}@else {
+    <p>Accesul interzis</p>
+}

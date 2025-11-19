@@ -19,4 +19,16 @@ export const routes: Routes = [{
 {
     path: 'test',
     loadComponent: () => import('./components/test/test').then(c => c.Test)
+},
+{
+    path: 'login',
+    loadComponent: () => import('./components/auth/login/connector').then(c => c.LoginPage)
+},
+{
+    path: 'register',
+    loadComponent: () => import('./components/auth/register/connector').then(c => c.RegisterPage)
+},
+{
+    path: 'admin',
+    loadComponent: () => import('./components/admin/connector').then(c => c.AdminPage)
 }];

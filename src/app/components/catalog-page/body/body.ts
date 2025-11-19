@@ -1,5 +1,4 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ItemService } from '../../../services/item-service';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { DataService } from '../../../data/services/data-service';

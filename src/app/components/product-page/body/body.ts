@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ItemService } from '../../../services/item-service';
 import { ItemModel } from '../../../data/models/ItemModel';
 import { CommonModule } from '@angular/common';
 import { DataService } from '../../../data/services/data-service';
