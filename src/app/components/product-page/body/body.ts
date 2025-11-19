@@ -1,8 +1,9 @@
-import { Component, inject, NgModule, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ItemService } from '../../../services/item-service';
 import { ItemModel } from '../../../data/models/ItemModel';
 import { CommonModule } from '@angular/common';
+import { DataService } from '../../../data/services/data-service';
 
 @Component({
   selector: 'app-body',
@@ -15,16 +16,16 @@ export class Body {
 
   private route = inject(ActivatedRoute)
   private router = inject(Router)
-  private items = inject(ItemService) 
+  private items = inject(DataService) 
   
    ngOnInit() {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
+    const id = String(this.route.snapshot.paramMap.get('id'));
 
-    this.items.getItems().subscribe(items => {
+    this.items.getAlldata_products().subscribe(items => {
       this.product = items.find(item => item.id === id);
     });
   }
   goBack() {
-    this.router.navigate(['/']); 
+    this.router.navigate(['/catalog']); 
   }
 }

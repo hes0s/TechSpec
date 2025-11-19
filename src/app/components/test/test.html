@@ -1,0 +1,11 @@
+
+<button (click)="getData()">getData</button>
+
+<ul>
+  @for (item of items; track $index) {
+    <li>{{ item.name }}</li>
+    <li>{{item.description}}</li>
+    <li>{{item.price}}</li>
+    <li><img src="{{item.imageUrl}}" alt=""></li>
+  }
+</ul>

@@ -1,9 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ItemService } from '../../../services/item-service';
-import { ItemModel } from '../../../data/models/ItemModel';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-
+import { DataService } from '../../../data/services/data-service';
+import { ItemModel } from '../../../data/models/ItemModel';
 
 @Component({
   selector: 'app-body',
@@ -12,13 +12,22 @@ import { RouterLink } from '@angular/router';
   styleUrl: './body.css'
 })
 export class Body {
-  items: any[] = [];
+  items: ItemModel[] = [];
 
-  constructor(private itemService: ItemService) {}
+  private data = inject(DataService);
 
   ngOnInit() {
-    this.itemService.getItems().subscribe(data => {
-      this.items = data;
-    });
+    this.getData();
   }
+  getData(){
+    this.data.getAlldata_products().subscribe({
+      next: (res: any) => {
+        this.items = res;
+      },
+      error: (err: any) => {
+        console.log("error fetch data", err)
+      }
+    })
+  }
+
 }
