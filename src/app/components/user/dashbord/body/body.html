@@ -1,0 +1,212 @@
+<div class="dashboard-container">
+  <div class="container py-5">
+    <!-- Welcome Section -->
+    <div class="welcome-section mb-4">
+      <h1 class="dashboard-title">Welcome back, User!</h1>
+      <p class="text-muted">Manage your cart and track your orders</p>
+    </div>
+
+    <div class="row g-4">
+      <!-- Left Column: Cart Summary -->
+      <div class="col-lg-8">
+        <!-- Shopping Cart Card -->
+        <div class="card dashboard-card mb-4">
+          <div class="card-header">
+            <h3 class="card-title mb-0">🛒 Shopping Cart</h3>
+          </div>
+          <div class="card-body">
+            <!-- Cart Items -->
+            <div class="cart-items">
+              <!-- Cart Item 1 -->
+              <div class="cart-item">
+                <div class="row align-items-center">
+                  <div class="col-md-2 col-3">
+                    <img src="https://via.placeholder.com/150" alt="Product" class="cart-item-image">
+                  </div>
+                  <div class="col-md-4 col-9">
+                    <h5 class="item-name">Product Name</h5>
+                    <p class="item-description text-muted">Product description goes here</p>
+                  </div>
+                  <div class="col-md-2 col-4">
+                    <p class="item-price">$99.99</p>
+                  </div>
+                  <div class="col-md-3 col-4">
+                    <div class="quantity-controls">
+                      <button class="btn btn-sm btn-outline-secondary">-</button>
+                      <span class="quantity">1</span>
+                      <button class="btn btn-sm btn-outline-secondary">+</button>
+                    </div>
+                  </div>
+                  <div class="col-md-1 col-4 text-end">
+                    <button class="btn btn-sm btn-danger">🗑️</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Cart Item 2 -->
+              <div class="cart-item">
+                <div class="row align-items-center">
+                  <div class="col-md-2 col-3">
+                    <img src="https://via.placeholder.com/150" alt="Product" class="cart-item-image">
+                  </div>
+                  <div class="col-md-4 col-9">
+                    <h5 class="item-name">Another Product</h5>
+                    <p class="item-description text-muted">Another product description</p>
+                  </div>
+                  <div class="col-md-2 col-4">
+                    <p class="item-price">$149.99</p>
+                  </div>
+                  <div class="col-md-3 col-4">
+                    <div class="quantity-controls">
+                      <button class="btn btn-sm btn-outline-secondary">-</button>
+                      <span class="quantity">2</span>
+                      <button class="btn btn-sm btn-outline-secondary">+</button>
+                    </div>
+                  </div>
+                  <div class="col-md-1 col-4 text-end">
+                    <button class="btn btn-sm btn-danger">🗑️</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="cart-actions mt-4">
+              <button class="btn btn-outline-danger">Clear Cart</button>
+              <button class="btn btn-success">Proceed to Checkout</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Active Orders Card -->
+        <div class="card dashboard-card">
+          <div class="card-header">
+            <h3 class="card-title mb-0">📦 Active Orders</h3>
+          </div>
+          <div class="card-body">
+            <div class="orders-list">
+              <!-- Order 1 -->
+              <div class="order-item">
+                <div class="order-header">
+                  <div>
+                    <h5 class="order-id">Order #12345</h5>
+                    <p class="order-date text-muted">Nov 18, 2025, 3:45 PM</p>
+                  </div>
+                  <div>
+                    <span class="badge bg-info">PROCESSING</span>
+                  </div>
+                </div>
+                <div class="order-items">
+                  <div class="order-product">
+                    <img src="https://via.placeholder.com/50" alt="Product" class="order-product-image">
+                    <div class="order-product-info">
+                      <span class="product-name">Laptop HP</span>
+                      <span class="product-quantity text-muted">x2</span>
+                    </div>
+                    <span class="product-price">$1999.98</span>
+                  </div>
+                </div>
+                <div class="order-footer">
+                  <strong>Total: $1999.98</strong>
+                  <button class="btn btn-sm btn-outline-primary">Track Order</button>
+                </div>
+              </div>
+
+              <!-- Order 2 -->
+              <div class="order-item">
+                <div class="order-header">
+                  <div>
+                    <h5 class="order-id">Order #12344</h5>
+                    <p class="order-date text-muted">Nov 15, 2025, 10:20 AM</p>
+                  </div>
+                  <div>
+                    <span class="badge bg-primary">SHIPPED</span>
+                  </div>
+                </div>
+                <div class="order-items">
+                  <div class="order-product">
+                    <img src="https://via.placeholder.com/50" alt="Product" class="order-product-image">
+                    <div class="order-product-info">
+                      <span class="product-name">Wireless Mouse</span>
+                      <span class="product-quantity text-muted">x1</span>
+                    </div>
+                    <span class="product-price">$29.99</span>
+                  </div>
+                </div>
+                <div class="order-footer">
+                  <strong>Total: $29.99</strong>
+                  <button class="btn btn-sm btn-outline-primary">Track Order</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Summary & Quick Stats -->
+      <div class="col-lg-4">
+        <!-- Cart Summary Card -->
+        <div class="card dashboard-card mb-4">
+          <div class="card-header">
+            <h4 class="card-title mb-0">Cart Summary</h4>
+          </div>
+          <div class="card-body">
+            <div class="summary-item">
+              <span>Items in Cart:</span>
+              <strong>3</strong>
+            </div>
+            <div class="summary-item">
+              <span>Subtotal:</span>
+              <strong>$399.97</strong>
+            </div>
+            <div class="summary-item">
+              <span>Shipping:</span>
+              <strong>$10.00</strong>
+            </div>
+            <hr>
+            <div class="summary-item summary-total">
+              <span>Total:</span>
+              <strong>$409.97</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Stats Card -->
+        <div class="card dashboard-card">
+          <div class="card-header">
+            <h4 class="card-title mb-0">Quick Stats</h4>
+          </div>
+          <div class="card-body">
+            <div class="stat-item">
+              <div class="stat-icon">🛒</div>
+              <div class="stat-info">
+                <span class="stat-label">Cart Items</span>
+                <span class="stat-value">3</span>
+              </div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-icon">📦</div>
+              <div class="stat-info">
+                <span class="stat-label">Active Orders</span>
+                <span class="stat-value">2</span>
+              </div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-icon">✅</div>
+              <div class="stat-info">
+                <span class="stat-label">Completed Orders</span>
+                <span class="stat-value">12</span>
+              </div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-icon">💰</div>
+              <div class="stat-info">
+                <span class="stat-label">Total Spent</span>
+                <span class="stat-value">$2,499</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

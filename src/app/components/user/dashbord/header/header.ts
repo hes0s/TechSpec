@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { AuthService } from '../../../data/services/auth-service';
-import { LocalStorageService } from '../../../data/services/local-storage-service';
+import { AuthService } from '../../../../data/services/auth-service';
+import { LocalStorageService } from '../../../../data/services/local-storage-service';
 
 @Component({
   selector: 'app-header',
@@ -10,30 +10,27 @@ import { LocalStorageService } from '../../../data/services/local-storage-servic
   styleUrl: './header.css'
 })
 export class Header {
-
-  private localS = inject(LocalStorageService)
   private auth = inject(AuthService)
+  private localS = inject(LocalStorageService)
   loggedIn : boolean = false
-  cartCount: number = 0
-
-
-  getCartStatus(){
-    this.cartCount = this.localS.getItemCountCart() 
-  }
-
-  watchCartUpdate(){
-    this.localS.cart.subscribe(cart => {
-      this.cartCount = cart.reduce((total, item) => total + item.quantity, 0)
-    })
-  }
-
+  cartCount: any;
   getStatus(){
     this.auth.getStatus().subscribe((user) => {
       if(user){
         this.loggedIn = true;
       } else {
         this.loggedIn = false;
-      }})
+      }
+    })
+  }
+
+  getCartStatus(){
+    this.cartCount = this.localS.getItemCountCart() 
+  }
+  watchCartUpdate(){
+    this.localS.cart.subscribe(cart => {
+      this.cartCount = cart.reduce((total, item) => total + item.quantity, 0)
+    })
   }
 
   logOut(){

@@ -31,4 +31,8 @@ export const routes: Routes = [{
 {
     path: 'admin',
     loadComponent: () => import('./components/admin/connector').then(c => c.AdminPage)
+},
+{
+    path: 'user',
+    loadComponent: () => import('./components/user/dashbord/connector').then(c => c.UserPage)
 }];
