@@ -47,7 +47,7 @@
             
             <div class="cart-actions mt-4">
               <button class="btn btn-outline-danger" (click)="clearCart()">Clear Cart</button>
-              <button class="btn btn-success">Proceed to Checkout</button>
+              <button class="btn btn-success colapse" (click)="proceedToCheckout()">Proceed to Checkout</button>
             </div>
           </div>
         </div>
@@ -83,32 +83,6 @@
                   <button class="btn btn-sm btn-outline-primary">Track Order</button>
                 </div>
               </div>
-
-              <div class="order-item">
-                <div class="order-header">
-                  <div>
-                    <h5 class="order-id">Order #12344</h5>
-                    <p class="order-date text-muted">Nov 15, 2025, 10:20 AM</p>
-                  </div>
-                  <div>
-                    <span class="badge bg-primary">SHIPPED</span>
-                  </div>
-                </div>
-                <div class="order-items">
-                  <div class="order-product">
-                    <img src="https://via.placeholder.com/50" alt="Product" class="order-product-image">
-                    <div class="order-product-info">
-                      <span class="product-name">Wireless Mouse</span>
-                      <span class="product-quantity text-muted">x1</span>
-                    </div>
-                    <span class="product-price">$29.99</span>
-                  </div>
-                </div>
-                <div class="order-footer">
-                  <strong>Total: $29.99</strong>
-                  <button class="btn btn-sm btn-outline-primary">Track Order</button>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -141,42 +115,67 @@
           </div>
         </div>
       }
-        <div class="card dashboard-card">
-          <div class="card-header">
-            <h4 class="card-title mb-0">Quick Stats</h4>
-          </div>
-          <div class="card-body">
-            <div class="stat-item">
-              <div class="stat-icon">🛒</div>
-              <div class="stat-info">
-                <span class="stat-label">Cart Items</span>
-                <span class="stat-value">3</span>
-              </div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-icon">📦</div>
-              <div class="stat-info">
-                <span class="stat-label">Active Orders</span>
-                <span class="stat-value">2</span>
-              </div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-icon">✅</div>
-              <div class="stat-info">
-                <span class="stat-label">Completed Orders</span>
-                <span class="stat-value">12</span>
-              </div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-icon">💰</div>
-              <div class="stat-info">
-                <span class="stat-label">Total Spent</span>
-                <span class="stat-value">$2,499</span>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
+      @if (showCheckoutForm) {
+      <div class="checkout-form mt-4 p-4 border rounded colapse">
+        <h4>Shipping Information</h4>
+        
+        <form (ngSubmit)="submitOrder()">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Full Name</label>
+              <input type="text" class="form-control" [(ngModel)]="orderForm.fullName" name="fullName" required>
+            </div>
+            
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Phone</label>
+              <input type="tel" class="form-control" [(ngModel)]="orderForm.phone" name="phone" required>
+            </div>
+          </div>
+          
+          <div class="mb-3">
+            <label class="form-label">Address</label>
+            <input type="text" class="form-control" [(ngModel)]="orderForm.address" name="address" required>
+          </div>
+          
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <label class="form-label">City</label>
+              <input type="text" class="form-control" [(ngModel)]="orderForm.city" name="city" required>
+            </div>
+            
+            <div class="col-md-4 mb-3">
+              <label class="form-label">Postal Code</label>
+              <input type="text" class="form-control" [(ngModel)]="orderForm.postalCode" name="postalCode" required>
+            </div>
+            
+            <div class="col-md-4 mb-3">
+              <label class="form-label">Country</label>
+              <input type="text" class="form-control" [(ngModel)]="orderForm.country" name="country" required>
+            </div>
+          </div>
+          
+          <div class="mb-3">
+            <label class="form-label">Payment Method</label>
+            <select class="form-select" [(ngModel)]="orderForm.paymentMethod" name="paymentMethod">
+              <option value="card">Credit/Debit Card</option>
+              <option value="paypal">PayPal</option>
+              <option value="cash_on_delivery">Cash on Delivery</option>
+            </select>
+          </div>
+          
+          <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-success flex-fill">
+              Place Order - ${{cartTotal}}
+            </button>
+            <button type="button" class="btn btn-outline-secondary" 
+                    (click)="showCheckoutForm = false">
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+}
     </div>
   </div>
 </div>

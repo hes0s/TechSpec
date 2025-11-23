@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
+export class  AuthService{
   
   private auth = inject(Auth)
   logIn(email: string, password: string){
@@ -27,10 +27,11 @@ export class AuthService {
     if(user !== null){
       return user.email
     }else{
-    return null}
+    return null
+  }
   }
 
-  getStatus():Observable<User | null>{
+  getStatus(): Observable<User | null>{
     return authState(this.auth)
   }
 }

@@ -1,7 +1,8 @@
-import { Firestore, collection, collectionData, addDoc, updateDoc, deleteDoc, setDoc, doc } from '@angular/fire/firestore';
+import { Firestore, collection, collectionData, addDoc, updateDoc, deleteDoc, setDoc, doc, query, where } from '@angular/fire/firestore';
 import { inject, Injectable } from '@angular/core';
 import { ItemModel } from '../models/ItemModel';
 import { Observable } from 'rxjs';
+import { OrderModel } from '../models/OrderModel';
 
 
 @Injectable({           
@@ -36,5 +37,16 @@ export class DataService {
   deleteProduct(id: string){
     const productDoc = doc(this.firestore, 'product', id)
     return deleteDoc(productDoc)
+  }
+
+  
+  addOrder(order: OrderModel): Promise<any> {
+    const ordersRef = collection(this.firestore, 'orders');
+    return addDoc(ordersRef, order);
+  }
+  getUserOrders(userEmail: string): Observable<OrderModel[]> {
+    const ordersRef = collection(this.firestore, 'orders');
+    const q = query(ordersRef, where('userId', '==', userEmail));
+    return collectionData(q, { idField: 'id' }) as Observable<OrderModel[]>;
   }
 }
