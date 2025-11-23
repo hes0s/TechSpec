@@ -20,11 +20,12 @@ export class Body {
   productId: string = ''
   totalItem: number = 0;
   cartTotal: number = 0;
+  loggedIn : boolean = false;
   cartItemcount: any;
   showCheckoutForm: boolean = false;
-  private localS = inject(LocalStorageService)
-  private dataService = inject(DataService)
-  private auth = inject(AuthService)
+  private localS = inject(LocalStorageService);
+  private dataService = inject(DataService);
+  private auth = inject(AuthService);
   
   orderForm = {
     fullName: '',
@@ -51,7 +52,6 @@ Proceed: any;
       this.localS.clearCart()
     }
   }
-
   addQuantity(productId: string){
     this.localS.increaseQuantity(productId)
   }
@@ -61,6 +61,15 @@ Proceed: any;
   }
   removeItem(productId: string){
     this.localS.removeProduct(productId)
+  }
+
+  getStatus(){
+    this.auth.getStatus().subscribe((user) => {
+      if(user){
+        this.loggedIn = true;
+      } else {
+        this.loggedIn = false;
+      }})
   }
 
   updateCart(){
@@ -133,5 +142,6 @@ loadUserOrders() {
 }
   ngOnInit(){
     this.updateCart()
+    this.getStatus()
   }
 }
