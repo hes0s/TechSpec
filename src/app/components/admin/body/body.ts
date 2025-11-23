@@ -4,6 +4,7 @@ import { ItemModel } from '../../../data/models/ItemModel';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../data/services/auth-service';
+import { getAuth} from '@angular/fire/auth';
 
 @Component({
   selector: 'app-body',
@@ -29,7 +30,7 @@ private dataService = inject(DataService);
   isEditing: boolean = false;
 
   ngOnInit() {
-    this.getUser()
+    this.getUser();
     this.loadProducts();
   }
 
@@ -106,16 +107,18 @@ private dataService = inject(DataService);
   }
 
   getUser(){
-    this.auth.getCurent().subscribe((user) => {
-      if (user){
-        if(user.email == "admin@admin.com"){
-          this.islogged = true;
+    this.auth.getStatus().subscribe(user => {
+      if(user !== null && user.email === 'admin@admin.com'){
+        this.islogged = true
+        console.log('Admin access granted')
+      } else {
+        this.islogged = false
+        if(user === null){
+          alert("You are not logged in")
+        } else {
+          alert("You are not an admin")
         }
-        else{
-          this.islogged = false;
-          alert("You are admin")
-        }
-      }
-    })
-  }
+    }
+  })
+}
 }

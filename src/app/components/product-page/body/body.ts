@@ -24,7 +24,7 @@ export class Body {
       this.product = items.find(item => item.id === id);
     });
   }
-  goBack() {
+  goBack() { 
     this.router.navigate(['/catalog']); 
   }
 }

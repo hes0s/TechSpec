@@ -37,7 +37,6 @@ export class Body {
     event.stopPropagation();
   
     this.localS.addProduct(item);  
-    alert(`Added ${item.name} to cart!`);
   }
 
   getStatus(){

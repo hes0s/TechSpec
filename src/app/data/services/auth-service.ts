@@ -1,13 +1,13 @@
 import { Injectable, inject } from '@angular/core';
-import { Auth, authState, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, user, User } from '@angular/fire/auth';
+import { Auth, authState, createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut, user, User } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  
   private auth = inject(Auth)
-
   logIn(email: string, password: string){
     return signInWithEmailAndPassword(this.auth, email, password)
   }
@@ -17,11 +17,17 @@ export class AuthService {
   }
 
   logOut(){
-    return signOut(this.auth)
+    signOut(this.auth)
+    localStorage.clear()
   }
 
-  getCurent():Observable<User | null>{
-    return user(this.auth)
+  getCurent(): string | null {
+    const auth = getAuth()
+    const user = auth.currentUser
+    if(user !== null){
+      return user.email
+    }else{
+    return null}
   }
 
   getStatus():Observable<User | null>{

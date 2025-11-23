@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { DataService } from './data-service';
 import { ItemModel } from '../models/ItemModel';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { JsonPipe } from '@angular/common';
 import { NgModelGroup } from '@angular/forms';
 
@@ -86,7 +86,7 @@ export class LocalStorageService {
     }
   }
 
-  increaseQuantity(productId: string): void{
+  increaseQuantity(productId: string){
     const cart = this.loadCart();
     const item = cart.find(item => item.product.id === productId);
 

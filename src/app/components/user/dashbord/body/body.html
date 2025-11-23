@@ -17,74 +17,47 @@
           <div class="card-body">
             <!-- Cart Items -->
             <div class="cart-items">
-              <!-- Cart Item 1 -->
+              @for(item of items; track $index){
               <div class="cart-item">
                 <div class="row align-items-center">
                   <div class="col-md-2 col-3">
-                    <img src="https://via.placeholder.com/150" alt="Product" class="cart-item-image">
+                    <img [src]= "item.product.imageUrl" alt="Product" class="cart-item-image">
                   </div>
                   <div class="col-md-4 col-9">
-                    <h5 class="item-name">Product Name</h5>
-                    <p class="item-description text-muted">Product description goes here</p>
+                    <h5 class="item-name">{{item.product.name}}</h5>
+                    <p class="item-description text-muted">{{item.product.description}}</p>
                   </div>
                   <div class="col-md-2 col-4">
-                    <p class="item-price">$99.99</p>
+                    <p class="item-price">{{item.product.price * item.quantity}}$</p>
                   </div>
                   <div class="col-md-3 col-4">
                     <div class="quantity-controls">
-                      <button class="btn btn-sm btn-outline-secondary">-</button>
-                      <span class="quantity">1</span>
-                      <button class="btn btn-sm btn-outline-secondary">+</button>
+                      <button class="btn btn-sm btn-outline-secondary" (click)="reduceQuantity(item.product.id)">-</button>
+                      <span class="quantity">{{item.quantity}}</span>
+                      <button class="btn btn-sm btn-outline-secondary" (click)="addQuantity(item.product.id)">+</button>
                     </div>
                   </div>
                   <div class="col-md-1 col-4 text-end">
-                    <button class="btn btn-sm btn-danger">🗑️</button>
+                    <button class="btn btn-sm btn-danger" (click)="removeItem(item.product.id)">🗑️</button>
                   </div>
                 </div>
               </div>
-
-              <!-- Cart Item 2 -->
-              <div class="cart-item">
-                <div class="row align-items-center">
-                  <div class="col-md-2 col-3">
-                    <img src="https://via.placeholder.com/150" alt="Product" class="cart-item-image">
-                  </div>
-                  <div class="col-md-4 col-9">
-                    <h5 class="item-name">Another Product</h5>
-                    <p class="item-description text-muted">Another product description</p>
-                  </div>
-                  <div class="col-md-2 col-4">
-                    <p class="item-price">$149.99</p>
-                  </div>
-                  <div class="col-md-3 col-4">
-                    <div class="quantity-controls">
-                      <button class="btn btn-sm btn-outline-secondary">-</button>
-                      <span class="quantity">2</span>
-                      <button class="btn btn-sm btn-outline-secondary">+</button>
-                    </div>
-                  </div>
-                  <div class="col-md-1 col-4 text-end">
-                    <button class="btn btn-sm btn-danger">🗑️</button>
-                  </div>
-                </div>
-              </div>
+              }
             </div>
-
+            
             <div class="cart-actions mt-4">
-              <button class="btn btn-outline-danger">Clear Cart</button>
+              <button class="btn btn-outline-danger" (click)="clearCart()">Clear Cart</button>
               <button class="btn btn-success">Proceed to Checkout</button>
             </div>
           </div>
         </div>
 
-        <!-- Active Orders Card -->
         <div class="card dashboard-card">
           <div class="card-header">
             <h3 class="card-title mb-0">📦 Active Orders</h3>
           </div>
           <div class="card-body">
             <div class="orders-list">
-              <!-- Order 1 -->
               <div class="order-item">
                 <div class="order-header">
                   <div>
@@ -111,7 +84,6 @@
                 </div>
               </div>
 
-              <!-- Order 2 -->
               <div class="order-item">
                 <div class="order-header">
                   <div>
@@ -142,9 +114,8 @@
         </div>
       </div>
 
-      <!-- Right Column: Summary & Quick Stats -->
       <div class="col-lg-4">
-        <!-- Cart Summary Card -->
+         @if(items){
         <div class="card dashboard-card mb-4">
           <div class="card-header">
             <h4 class="card-title mb-0">Cart Summary</h4>
@@ -152,11 +123,11 @@
           <div class="card-body">
             <div class="summary-item">
               <span>Items in Cart:</span>
-              <strong>3</strong>
+              <strong>{{cartItemcount}}</strong>
             </div>
             <div class="summary-item">
               <span>Subtotal:</span>
-              <strong>$399.97</strong>
+              <strong>$ {{cartTotal - 10}}</strong>
             </div>
             <div class="summary-item">
               <span>Shipping:</span>
@@ -165,12 +136,11 @@
             <hr>
             <div class="summary-item summary-total">
               <span>Total:</span>
-              <strong>$409.97</strong>
+              <strong>$ {{cartTotal}}</strong>
             </div>
           </div>
         </div>
-
-        <!-- Quick Stats Card -->
+      }
         <div class="card dashboard-card">
           <div class="card-header">
             <h4 class="card-title mb-0">Quick Stats</h4>

@@ -5,11 +5,13 @@
       <a routerLink="/catalog">Products</a>
       @if (loggedIn) {
         <a (click)="logOut()">Log out</a>
+        <a routerLink="/user">Account</a>
+        <a routerLink="/contact">Contact</a>
+        <div class="cart" id="cartBtn">🛒 <span id="cartCount" routerLink="/user">{{cartCount}}</span></div>
       }@else {
         <a routerLink="/login">Log in</a>
         <a routerLink="/register">Register</a>
       }
-      <a routerLink="/contact">Contact</a>
-      <div class="cart" id="cartBtn">🛒 <span id="cartCount">{{cartCount}}</span></div>
+      
     </nav>
   </header>

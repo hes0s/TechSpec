@@ -35,7 +35,6 @@ export class Header {
 
   logOut(){
     this.auth.logOut()
-    alert("logged out")
   }
 
   ngOnInit() {
