@@ -4,6 +4,8 @@ import { DataService } from '../../data/services/data-service'
 import { ItemModel } from '../../data/models/ItemModel';
 import { Auth, authState, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, user, User } from '@angular/fire/auth';
 import { CartItem, LocalStorageService } from '../../data/services/local-storage-service';
+import { OrderModel } from '../../data/models/OrderModel';
+import { AuthService } from '../../data/services/auth-service';
 
 @Component({
   selector: 'app-test',
@@ -15,10 +17,12 @@ export class Test implements OnInit{
   ngOnInit(): void {
     this.getData()
   }
+  private auth = inject(AuthService)
   private data = inject(DataService)
   private localS = inject(LocalStorageService)
   firestore = inject(Firestore);
   
+  userOrders: OrderModel[] = [];
   items : ItemModel[] = [];
   cartItems: CartItem[] = []
 
@@ -46,5 +50,15 @@ export class Test implements OnInit{
   getCart(){
     this.cartItems = this.localS.getCart();
     console.log(this.cartItems);
+  }
+
+  loadUserOrders() {
+    const userEmail = this.auth.getCurent();
+    if(userEmail) {
+      this.data.getUserOrders(userEmail).subscribe((orders: OrderModel[]) => {
+        this.userOrders = orders;
+        console.log(this.userOrders)
+      });
+    }
   }
 }

@@ -52,28 +52,30 @@
           </div>
         </div>
 
+        
         <div class="card dashboard-card">
           <div class="card-header">
             <h3 class="card-title mb-0">📦 Active Orders</h3>
           </div>
+          @for(order of userOrders; track $index){
           <div class="card-body">
             <div class="orders-list">
               <div class="order-item">
                 <div class="order-header">
                   <div>
-                    <h5 class="order-id">Order #12345</h5>
-                    <p class="order-date text-muted">Nov 18, 2025, 3:45 PM</p>
+                    <h5 class="order-id">Order {{order.id}}</h5>
+                    <p class="order-date text-muted">{{order.orderDate}}</p>
                   </div>
                   <div>
-                    <span class="badge bg-info">PROCESSING</span>
+                    <span class="badge bg-info">{{order.status}}</span>
                   </div>
                 </div>
                 <div class="order-items">
                   <div class="order-product">
                     <img src="https://via.placeholder.com/50" alt="Product" class="order-product-image">
                     <div class="order-product-info">
-                      <span class="product-name">Laptop HP</span>
-                      <span class="product-quantity text-muted">x2</span>
+                      <span class="product-name">{{order.items}}</span>
+                      <span class="product-quantity text-muted">{{order.total}}</span>
                     </div>
                     <span class="product-price">$1999.98</span>
                   </div>
@@ -85,6 +87,7 @@
               </div>
             </div>
           </div>
+        }
         </div>
       </div>
 
