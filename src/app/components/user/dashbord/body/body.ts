@@ -8,7 +8,7 @@ import { OrderModel } from '../../../../data/models/OrderModel';
 import { DataService } from '../../../../data/services/data-service';
 
 @Component({
-  selector: 'app-body',
+  selector: 'app-user-body',
   imports: [FormsModule, CommonModule],
   templateUrl: './body.html',
   styleUrl: './body.css',

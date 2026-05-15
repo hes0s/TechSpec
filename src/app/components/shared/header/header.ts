@@ -5,12 +5,12 @@ import { LocalStorageService } from '../../../data/services/local-storage-servic
 import { ThemeService } from '../../../services/theme';
 
 @Component({
-  selector: 'app-header',
+  selector: 'app-general-header',
   imports: [RouterLink],
   templateUrl: './header.html',
   styleUrl: './header.css'
 })
-export class Header {
+export class GeneralHeader {
   constructor(public theme: ThemeService) {}
   private localS = inject(LocalStorageService)
   private auth = inject(AuthService)

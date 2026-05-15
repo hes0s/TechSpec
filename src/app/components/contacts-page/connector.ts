@@ -1,17 +1,16 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { Body } from './body/body';
-import { Footer } from './footer/footer';
-import { Header } from './header/header';
+import { GeneralFooter } from '../shared/footer/footer';
+import { GeneralHeader } from '../shared/header/header';
 
 @Component({
-  selector: 'contact-page-app',
-  imports: [RouterOutlet, Body, Footer, Header],
+  selector: 'contacts-page-app',
+  imports: [ Body, GeneralFooter, GeneralHeader],
   template: `
-    <app-header></app-header>
-    <app-body></app-body>
-    <app-footer></app-footer>
-    <router-outlet />
+    <app-general-header></app-general-header>
+    <app-contacts-body></app-contacts-body>
+    <app-general-footer></app-general-footer>
+
   `,
   styles: [],
 })

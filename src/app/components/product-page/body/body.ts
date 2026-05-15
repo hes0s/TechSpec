@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { DataService } from '../../../data/services/data-service';
 
 @Component({
-  selector: 'app-body',
+  selector: 'app-product-body',
   imports: [CommonModule],
   templateUrl: './body.html',
   styleUrl: './body.css'

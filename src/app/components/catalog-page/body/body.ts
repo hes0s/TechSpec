@@ -8,7 +8,7 @@ import { ItemModel } from '../../../data/models/ItemModel';
 import { loadBundle } from '@angular/fire/firestore';
 
 @Component({
-  selector: 'app-body',
+  selector: 'app-catalog-body',
   imports: [CommonModule, RouterLink],
   templateUrl: './body.html',
   styleUrl: './body.css'

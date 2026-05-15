@@ -8,7 +8,7 @@ import { AuthService } from '../../../data/services/auth-service';
 import { getAuth} from '@angular/fire/auth';
 
 @Component({
-  selector: 'app-body',
+  selector: 'app-admin-body',
   imports: [FormsModule, CommonModule],
   templateUrl: './body.html',
   styleUrl: './body.css',

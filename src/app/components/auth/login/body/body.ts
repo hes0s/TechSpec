@@ -3,7 +3,7 @@ import { AuthService } from '../../../../data/services/auth-service';
 import { FormsModule } from '@angular/forms'; 
 
 @Component({
-  selector: 'app-body',
+  selector: 'app-login-body',
   imports: [FormsModule],
   templateUrl: './body.html',
   styleUrl: './body.css',

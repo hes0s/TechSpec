@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { AuthService } from '../../../../data/services/auth-service';
 import { FormsModule } from '@angular/forms';
 @Component({
-  selector: 'app-body',
+  selector: 'app-register-body',
   imports: [FormsModule],
   templateUrl: './body.html',
   styleUrl: './body.css',
