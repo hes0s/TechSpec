@@ -1,9 +1,9 @@
 footer {
   text-align: center;
   padding: 20px;
-  background: #fff;
+  background: var(--bg);
   border-top: 1px solid #eee;
-  margin-top: 40px;
+  
   font-size: 0.9rem;
   color: #666;
 }

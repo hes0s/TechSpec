@@ -12,6 +12,8 @@
         <a routerLink="/login">Log in</a>
         <a routerLink="/register">Register</a>
       }
-      
+      <button (click)="theme.toggle()">
+        {{ theme.isDark() ? '☀️ Light' : '🌙 Dark' }}
+      </button>      
     </nav>
   </header>

@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { DataService } from '../../../data/services/data-service';
 import { ItemModel } from '../../../data/models/ItemModel';
+import { ItemSpec } from '../../../data/models/ItemModel';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../data/services/auth-service';
@@ -24,7 +25,8 @@ private dataService = inject(DataService);
     name: '',
     description: '',
     price: 0,
-    imageUrl: ''
+    imageUrl: '',
+    specs: []
   };
   
   isEditing: boolean = false;
@@ -44,7 +46,12 @@ private dataService = inject(DataService);
       }
     });
   }
-
+  addSpec() {
+    this.productForm.specs.push({key: '', value: ''})
+  }
+  removeSpec(index: number) {
+    this.productForm.specs.splice(index, 1);
+  }
   addProduct() {
     this.dataService.addProduct(this.productForm)
       .then(() => {
@@ -67,7 +74,6 @@ private dataService = inject(DataService);
     
     this.dataService.modifyProduct(id, productData)
       .then(() => {
-        alert('Produs actualizat!');
         this.resetForm();
       })
       .catch((error) => {
@@ -79,7 +85,6 @@ private dataService = inject(DataService);
     if (confirm('Sigur vrei să ștergi acest produs?')) {
       this.dataService.deleteProduct(id)
         .then(() => {
-          alert('Produs șters!');
         })
         .catch((error) => {
           alert('Eroare: ' + error.message);
@@ -93,7 +98,8 @@ private dataService = inject(DataService);
       name: '',
       description: '',
       price: 0,
-      imageUrl: ''
+      imageUrl: '',
+      specs: []
     };
     this.isEditing = false;
   }
@@ -108,7 +114,7 @@ private dataService = inject(DataService);
 
   getUser(){
     this.auth.getStatus().subscribe(user => {
-      if(user !== null && user.email === 'admin@admin.com'){
+      if(user !== null && user.email === 'cusnircristi161@gmail.com'){
         this.islogged = true
         console.log('Admin access granted')
       } else {

@@ -1,13 +1,22 @@
-    body {
-      background-color: #fff;
-      font-family: 'Segoe UI', sans-serif;
-    }
-    .contact-card {
-      border: none;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      border-radius: 10px;
-      padding: 20px;
-    }
-    .form-control, .btn {
-      border-radius: 5px;
-    }
+.contact-card {
+  background: var(--card-bg);
+  color: var(--text);
+  border: none;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.form-control {
+  background: var(--card-bg);
+  color: var(--text);
+  border-color: var(--border);
+  border-radius: 5px;
+}
+
+.form-control:focus {
+  background: var(--card-bg);
+  color: var(--text);
+  border-color: #0078ff;
+  box-shadow: 0 0 0 0.2rem rgba(0,120,255,0.25);
+}

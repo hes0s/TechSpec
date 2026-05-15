@@ -23,7 +23,8 @@ export class DataService {
       name: items.name,
       description: items.description,
       imageUrl: items.imageUrl,
-      price: items.price
+      price: items.price,
+      specs: items.specs
     })
   }
 
@@ -35,7 +36,7 @@ export class DataService {
   }
 
   deleteProduct(id: string){
-    const productDoc = doc(this.firestore, 'product', id)
+    const productDoc = doc(this.firestore, 'products', id)
     return deleteDoc(productDoc)
   }
 

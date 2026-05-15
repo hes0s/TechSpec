@@ -1,7 +1,7 @@
 
 @if (islogged) {
 <div class="container mt-4">
-  <h2>Gestionare Produse</h2>
+  <h2 class="pb-4">Gestionare Produse</h2>
 
   <div class="card mb-4">
     <div class="card-body">
@@ -46,6 +46,16 @@
             name="imageUrl">
         </div>
 
+        <div>
+          <label class="form-label ">Specificații</label>
+          <div *ngFor="let spec of productForm.specs; let i = index" class="spec-row">
+            <input [(ngModel)]="spec.key" [name]="'specKey' + i" class="form-control mb-1" placeholder="Spec name (e.g. RAM)" />
+            <input [(ngModel)]="spec.value" [name]="'specValue' + i" class="form-control mb-2" placeholder="Value (e.g. 16GB)" />
+            <button type="button" class="btn btn-secondary ms-2 pt-1 " (click)="removeSpec(i)">✕</button>
+          </div>
+        </div>
+        <button type="button" class="btn btn-secondary ms-2 m-2"(click)="addSpec()">+ Add Spec</button>
+
         <button type="submit" class="btn btn-primary">
           {{ isEditing ? 'Actualizează' : 'Adaugă' }}
         </button>
@@ -79,12 +89,12 @@
               <td>{{ product.price }}$</td>
               <td>
                 <button 
-                  class="btn btn-sm btn-warning me-2" 
+                  class="btn btn-sm btn-warning me-2 m-1" 
                   (click)="editProduct(product)">
                   Editează
                 </button>
                 <button 
-                  class="btn btn-sm btn-danger" 
+                  class="btn btn-sm btn-danger m-1" 
                   (click)="deleteProduct(product.id)">
                   Șterge
                 </button>

@@ -1,0 +1,27 @@
+.page-wrapper {
+  min-height: 100vh;
+  background-color: var(--bg);
+}
+
+.detail-card {
+  border-radius: 20px;
+  max-width: 400px;
+  width: 100%;
+  background-color: var(--card-bg);
+  color: var(--text);
+  border-color: var(--border);
+}
+
+.product-name {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.product-price {
+  color: var(--text);
+}
+
+.back-btn {
+  border-radius: 50px;
+  width: 120px;
+}

@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../../data/services/auth-service';
 import { LocalStorageService } from '../../../data/services/local-storage-service';
-
+import { ThemeService } from '../../../services/theme';
 @Component({
   selector: 'app-header',
   imports: [RouterLink],
@@ -10,6 +10,7 @@ import { LocalStorageService } from '../../../data/services/local-storage-servic
   styleUrl: './header.css'
 })
 export class Header {
+  constructor(public theme: ThemeService) {}
   private auth = inject(AuthService)
   private localS = inject(LocalStorageService)
   loggedIn : boolean = false

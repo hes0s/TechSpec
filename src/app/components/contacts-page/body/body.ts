@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { ThemeService } from '../../../services/theme';
 @Component({
   selector: 'app-body',
   imports: [],
@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './body.css'
 })
 export class Body {
-
+  constructor(public theme: ThemeService) {}
 }

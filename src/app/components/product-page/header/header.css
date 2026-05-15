@@ -1,10 +1,10 @@
 header {
-  background: #fff;
+  background: var(--bg);
   padding: 15px 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -13,7 +13,7 @@ header {
 header .logo {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #222;
+  color: var(--text);
 }
 
 header .logo span {
@@ -28,7 +28,7 @@ header nav {
 header nav a {
   margin: 0 15px;
   text-decoration: none;
-  color: #555;
+  color: var(--text-muted);
   font-weight: 500;
 }
 
@@ -49,4 +49,3 @@ header .cart {
 header .cart:hover {
   background: #005bb5;
 }
-
