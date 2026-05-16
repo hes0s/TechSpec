@@ -11,53 +11,51 @@ import { loadBundle } from '@angular/fire/firestore';
   selector: 'app-catalog-body',
   imports: [CommonModule, RouterLink],
   templateUrl: './body.html',
-  styleUrl: './body.css'
+  styleUrl: './body.css',
 })
 export class Body {
   items: ItemModel[] = [];
   private auth = inject(AuthService);
   private data = inject(DataService);
-  private localS = inject(LocalStorageService)
+  private localS = inject(LocalStorageService);
   private router = inject(Router);
-  
-  islogged: boolean = false
+
+  islogged: boolean = false;
 
   ngOnInit() {
-    this.getStatus()
+    this.getStatus();
     this.getData();
   }
-  goToLogin(event: Event){
+  goToLogin(event: Event) {
     event.preventDefault();
     event.stopPropagation();
-    this.router.navigate(['/login'])
+    this.router.navigate(['/login']);
   }
 
-  add_Produt_to_Cart(event: Event, item: ItemModel) { 
+  add_Produt_to_Cart(event: Event, item: ItemModel) {
     event.preventDefault();
     event.stopPropagation();
-  
-    this.localS.addProduct(item);  
+    this.localS.addProduct(item);
   }
 
-  getStatus(){
-    this.auth.getStatus().subscribe((user) =>{
-      if(user){
+  getStatus() {
+    this.auth.getStatus().subscribe((user) => {
+      if (user) {
         this.islogged = true;
-      }else{
+      } else {
         this.islogged = false;
       }
-    })
+    });
   }
 
-  getData(){
+  getData() {
     this.data.getAlldata_products().subscribe({
       next: (res: any) => {
         this.items = res;
       },
       error: (err: any) => {
-        console.log("error fetch data", err)
-      }
-    })
+        console.log('error fetch data', err);
+      },
+    });
   }
-
 }

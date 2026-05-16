@@ -1,16 +1,51 @@
-<div class="container d-flex justify-content-center align-items-center page-wrapper">
-  <div class="card p-4 shadow-sm text-center detail-card">
-    <h2 class="card-title mb-3 product-name">{{ product?.name }}</h2>
-    <img [src]="product?.imageUrl || 'https://via.placeholder.com/250x150'" 
-         alt="{{ product?.name }}" 
-         class="img-fluid rounded mb-3" 
-         style="object-fit: cover; border-radius: 15px;">
-    <h4 class="mb-3 product-price">{{ product?.price }}$</h4>
-    <p class="text-muted mb-4" style="font-size: 0.9rem; color: var(--text);">{{ product?.description }}</p>
-    <div class="d-flex justify-content-center mt-4">
-      <button class="btn btn-outline-primary back-btn" (click)="goBack()">
-        Înapoi
-      </button>
+<div class="page-wrapper">
+  <button class="back-btn" (click)="goBack()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M19 12H5M12 5l-7 7 7 7" />
+    </svg>
+    Catalog
+  </button>
+
+  @if (product) {
+    <div class="product-grid">
+      <div class="image-side">
+        <img
+          [src]="product.imageUrl || 'https://via.placeholder.com/500'"
+          [alt]="product.name"
+          class="product-img"
+        />
+      </div>
+
+      <div class="info-side">
+        <div class="product-name">{{ product.name }}</div>
+        <div class="product-price">{{ product.price | currency: 'USD' }}</div>
+        <p class="product-desc">{{ product.description }}</p>
+
+        <div class="divider"></div>
+
+        <div class="sections-wrapper">
+          @for (section of product.sections; track section.name) {
+            <div class="section-block">
+              <div class="section-header">
+                <div class="section-dot"></div>
+                <span class="section-name">{{ section.name }}</span>
+              </div>
+              <table class="specs-table">
+                @for (spec of section.specs; track spec.key) {
+                  <tr>
+                    <td class="spec-key">{{ spec.key }}</td>
+                    <td class="spec-value">{{ spec.value }}</td>
+                  </tr>
+                }
+              </table>
+            </div>
+          }
+        </div>
+
+        <button class="btn btn-primary" (click)="addToCart()">Add to cart</button>
+      </div>
     </div>
-  </div>
+  } @else {
+    <p class="loading">Se încarcă...</p>
+  }
 </div>

@@ -1,111 +1,150 @@
-
 @if (islogged) {
-<div class="container mt-4">
-  <h2 class="pb-4">Gestionare Produse</h2>
+  <div class="container mt-4">
+    <h2 class="pb-4">Gestionare Produse</h2>
 
-  <div class="card mb-4">
-    <div class="card-body">
-      <h3>{{ isEditing ? 'Editează Produs' : 'Adaugă Produs Nou' }}</h3>
-      
-      <form (ngSubmit)="saveProduct()">
-        <div class="mb-3">
-          <label class="form-label">Nume Produs</label>
-          <input 
-            type="text" 
-            class="form-control" 
-            [(ngModel)]="productForm.name"
-            name="name"
-            required>
-        </div>
+    <div class="card mb-4">
+      <div class="card-body">
+        <h3>{{ isEditing ? 'Editează Produs' : 'Adaugă Produs Nou' }}</h3>
 
-        <div class="mb-3">
-          <label class="form-label">Descriere</label>
-          <textarea 
-            class="form-control" 
-            [(ngModel)]="productForm.description"
-            name="description"
-            rows="3"></textarea>
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">Preț </label>
-          <input 
-            type="number" 
-            class="form-control" 
-            [(ngModel)]="productForm.price"
-            name="price"
-            required>
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">URL Imagine</label>
-          <input 
-            type="text" 
-            class="form-control" 
-            [(ngModel)]="productForm.imageUrl"
-            name="imageUrl">
-        </div>
-
-        <div>
-          <label class="form-label ">Specificații</label>
-          <div *ngFor="let spec of productForm.specs; let i = index" class="spec-row">
-            <input [(ngModel)]="spec.key" [name]="'specKey' + i" class="form-control mb-1" placeholder="Spec name (e.g. RAM)" />
-            <input [(ngModel)]="spec.value" [name]="'specValue' + i" class="form-control mb-2" placeholder="Value (e.g. 16GB)" />
-            <button type="button" class="btn btn-secondary ms-2 pt-1 " (click)="removeSpec(i)">✕</button>
+        <form (ngSubmit)="saveProduct()" class="productsForm">
+          <div class="mb-3">
+            <label class="form-label">Nume Produs</label>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="productForm.name"
+              name="name"
+              required
+            />
           </div>
-        </div>
-        <button type="button" class="btn btn-secondary ms-2 m-2"(click)="addSpec()">+ Add Spec</button>
 
-        <button type="submit" class="btn btn-primary">
-          {{ isEditing ? 'Actualizează' : 'Adaugă' }}
-        </button>
-        
-        @if (isEditing) {
-          <button type="button" class="btn btn-secondary ms-2" (click)="resetForm()">
-            Anulează
+          <div class="mb-3">
+            <label class="form-label">Descriere</label>
+            <textarea
+              class="form-control"
+              [(ngModel)]="productForm.description"
+              name="description"
+              rows="3"
+            ></textarea>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Preț </label>
+            <input
+              type="number"
+              class="form-control"
+              [(ngModel)]="productForm.price"
+              name="price"
+              required
+            />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">URL Imagine</label>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="productForm.imageUrl"
+              name="imageUrl"
+            />
+          </div>
+
+          <div
+            *ngFor="let section of productForm.sections; let si = index"
+            class="border rounded p-3 mb-3"
+          >
+            <div class="d-flex gap-2 mb-2">
+              <input
+                [(ngModel)]="section.name"
+                [name]="'section' + si"
+                placeholder="Nume secțiune (e.g. Hardware)"
+                class="form-control"
+              />
+              <button type="button" class="btn btn-sm btn-danger" (click)="removeSection(si)">
+                Șterge secțiunea
+              </button>
+            </div>
+
+            <div *ngFor="let spec of section.specs; let ki = index" class="d-flex gap-2 mb-2 ms-3">
+              <input
+                [(ngModel)]="spec.key"
+                [name]="'key' + si + '_' + ki"
+                placeholder="Spec (e.g. RAM)"
+                class="form-control"
+              />
+              <input
+                [(ngModel)]="spec.value"
+                [name]="'val' + si + '_' + ki"
+                placeholder="Valoare (e.g. 16GB)"
+                class="form-control"
+              />
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-danger"
+                (click)="removeSpec(si, ki)"
+              >
+                ✕
+              </button>
+            </div>
+
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-secondary ms-3"
+              (click)="addSpec(si)"
+            >
+              + Add Spec
+            </button>
+          </div>
+
+          <button type="button" class="btn btn-outline-primary m-1" (click)="addSection()">
+            + Add Section
           </button>
-        }
-      </form>
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-body">
-      <h3>Lista Produse</h3>
-      
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Nume</th>
-            <th>Descriere</th>
-            <th>Preț</th>
-            <th>Acțiuni</th>
-          </tr>
-        </thead>
-        <tbody>
-          @for (product of products; track product.id) {
-            <tr>
-              <td>{{ product.name }}</td>
-              <td>{{ product.description }}</td>
-              <td>{{ product.price }}$</td>
-              <td>
-                <button 
-                  class="btn btn-sm btn-warning me-2 m-1" 
-                  (click)="editProduct(product)">
-                  Editează
-                </button>
-                <button 
-                  class="btn btn-sm btn-danger m-1" 
-                  (click)="deleteProduct(product.id)">
-                  Șterge
-                </button>
-              </td>
-            </tr>
+          <button type="submit" class="btn btn-primary">
+            {{ isEditing ? 'Actualizează' : 'Adaugă' }}
+          </button>
+
+          @if (isEditing) {
+            <button type="button" class="btn btn-secondary ms-2" (click)="resetForm()">
+              Anulează
+            </button>
           }
-        </tbody>
-      </table>
+        </form>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <h3>Lista Produse</h3>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Nume</th>
+              <th>Descriere</th>
+              <th>Preț</th>
+              <th>Acțiuni</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (product of products; track product.id) {
+              <tr>
+                <td>{{ product.name }}</td>
+                <td>{{ product.description }}</td>
+                <td>{{ product.price }}$</td>
+                <td>
+                  <button class="btn btn-sm btn-warning me-2 m-1" (click)="editProduct(product)">
+                    Editează
+                  </button>
+                  <button class="btn btn-sm btn-danger m-1" (click)="deleteProduct(product.id)">
+                    Șterge
+                  </button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
-</div>
-}@else {
-    <p>Accesul interzis</p>
+} @else {
+  <p>Accesul interzis</p>
 }

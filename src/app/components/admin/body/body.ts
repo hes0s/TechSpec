@@ -2,10 +2,11 @@ import { Component, inject, OnInit } from '@angular/core';
 import { DataService } from '../../../data/services/data-service';
 import { ItemModel } from '../../../data/models/ItemModel';
 import { ItemSpec } from '../../../data/models/ItemModel';
+import { ItemSection } from '../../../data/models/ItemModel';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../data/services/auth-service';
-import { getAuth} from '@angular/fire/auth';
+import { getAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-admin-body',
@@ -14,21 +15,21 @@ import { getAuth} from '@angular/fire/auth';
   styleUrl: './body.css',
 })
 export class Body {
-private auth = inject(AuthService);
-islogged: boolean = false;
-private dataService = inject(DataService);
-  
+  private auth = inject(AuthService);
+  islogged: boolean = false;
+  private dataService = inject(DataService);
+
   products: ItemModel[] = [];
-  
+
   productForm: ItemModel = {
     id: '',
     name: '',
     description: '',
     price: 0,
     imageUrl: '',
-    specs: []
+    sections: [],
   };
-  
+
   isEditing: boolean = false;
 
   ngOnInit() {
@@ -43,17 +44,28 @@ private dataService = inject(DataService);
       },
       error: (err) => {
         console.error('Eroare la încărcare:', err);
-      }
+      },
     });
   }
-  addSpec() {
-    this.productForm.specs.push({key: '', value: ''})
+
+  addSection() {
+    this.productForm.sections.push({ name: '', specs: [] });
   }
-  removeSpec(index: number) {
-    this.productForm.specs.splice(index, 1);
+  removeSection(si: number) {
+    this.productForm.sections.splice(si, 1);
   }
+
+  addSpec(si: number) {
+    this.productForm.sections[si].specs.push({ key: '', value: '' });
+  }
+
+  removeSpec(si: number, ki: number) {
+    this.productForm.sections[si].specs.splice(ki, 1);
+  }
+
   addProduct() {
-    this.dataService.addProduct(this.productForm)
+    this.dataService
+      .addProduct(this.productForm)
       .then(() => {
         alert('Produs adăugat cu succes!');
         this.resetForm();
@@ -65,14 +77,14 @@ private dataService = inject(DataService);
 
   editProduct(product: ItemModel) {
     this.isEditing = true;
-    this.productForm = { ...product }; 
+    this.productForm = { ...product };
   }
-
 
   updateProduct() {
     const { id, ...productData } = this.productForm;
-    
-    this.dataService.modifyProduct(id, productData)
+
+    this.dataService
+      .modifyProduct(id, productData)
       .then(() => {
         this.resetForm();
       })
@@ -83,9 +95,9 @@ private dataService = inject(DataService);
 
   deleteProduct(id: string) {
     if (confirm('Sigur vrei să ștergi acest produs?')) {
-      this.dataService.deleteProduct(id)
-        .then(() => {
-        })
+      this.dataService
+        .deleteProduct(id)
+        .then(() => {})
         .catch((error) => {
           alert('Eroare: ' + error.message);
         });
@@ -99,7 +111,7 @@ private dataService = inject(DataService);
       description: '',
       price: 0,
       imageUrl: '',
-      specs: []
+      sections: [],
     };
     this.isEditing = false;
   }
@@ -112,19 +124,19 @@ private dataService = inject(DataService);
     }
   }
 
-  getUser(){
-    this.auth.getStatus().subscribe(user => {
-      if(user !== null && user.email === 'cusnircristi161@gmail.com'){
-        this.islogged = true
-        console.log('Admin access granted')
+  getUser() {
+    this.auth.getStatus().subscribe((user) => {
+      if (user !== null && user.email === 'cusnircristi161@gmail.com') {
+        this.islogged = true;
+        console.log('Admin access granted');
       } else {
-        this.islogged = false
-        if(user === null){
-          alert("You are not logged in")
+        this.islogged = false;
+        if (user === null) {
+          alert('You are not logged in');
         } else {
-          alert("You are not an admin")
+          alert('You are not an admin');
         }
-    }
-  })
-}
+      }
+    });
+  }
 }
