@@ -4,12 +4,12 @@
   align-items: center;
   justify-content: center;
   padding: 40px 20px;
-  background: #ffffff;
+  background: var(--bg);
   background-attachment: fixed;
 }
 
 .auth-card {
-  background: #ffffff;
+  background: var(--bg-card);
   border-radius: 20px;
   border: none;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
@@ -31,18 +31,18 @@
 .auth-title {
   font-size: 2rem;
   font-weight: 700;
-  color: #333;
+  color: var(--text);
   margin-bottom: 0.5rem;
 }
 
 .auth-subtitle {
   font-size: 1rem;
-  color: #6c757d;
+  color: var(--text);
 }
 
 .form-label {
   font-weight: 600;
-  color: #333;
+  color: var(--text);
   margin-bottom: 0.5rem;
 }
 
@@ -60,7 +60,7 @@
 }
 
 .form-control::placeholder {
-  color: #adb5bd;
+  color: var(--text);
 }
 
 .form-check-input {
@@ -141,5 +141,8 @@ hr {
 
   .auth-card .card-body {
     padding: 2rem 1.5rem !important;
+  }
+  p {
+    color: var(--text);
   }
 }

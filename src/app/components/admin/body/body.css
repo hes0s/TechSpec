@@ -1,0 +1,12 @@
+.form-label {
+  color: var(--text-muted);
+}
+.texthead {
+  color: var(--text);
+}
+h3 {
+  color: var(--text);
+}
+.card {
+  background: var(--bg-card);
+}

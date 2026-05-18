@@ -6,7 +6,7 @@
           <div class="card-body p-4 p-md-5">
             <div class="text-center mb-4">
               <h2 class="auth-title">Create Account</h2>
-              <p class="auth-subtitle text-muted">Join us today</p>
+              <p class="auth-subtitle">Join us today</p>
             </div>
 
             <form (ngSubmit)="onSignup()">
@@ -19,7 +19,7 @@
                   [(ngModel)]="email"
                   name="email"
                   required
-                >
+                />
               </div>
 
               <div class="mb-3">
@@ -31,10 +31,8 @@
                   [(ngModel)]="password"
                   name="password"
                   required
-                >
-                <div class="form-text">
-                  Password must be at least 8 characters long
-                </div>
+                />
+                <div class="form-text">Password must be at least 8 characters long</div>
               </div>
 
               <div class="d-grid gap-2 mb-3">
@@ -43,10 +41,11 @@
                 </button>
               </div>
 
-              <hr class="my-4">
+              <hr class="my-4" />
 
               <div class="text-center">
-                <p class="mb-0">Already have an account?
+                <p class="mb-0">
+                  Already have an account?
                   <a href="/login" class="text-decoration-none login-link">Sign in</a>
                 </p>
               </div>

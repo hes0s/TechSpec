@@ -8,7 +8,6 @@
               <h2 class="auth-title">Welcome Back</h2>
               <p class="auth-subtitle text-muted">Login to your account</p>
             </div>
-            <button (click)="getStatus()"></button>
 
             <form (ngSubmit)="onSignin()">
               <div class="mb-3">
@@ -20,7 +19,7 @@
                   [(ngModel)]="email"
                   name="email"
                   required
-                >
+                />
               </div>
 
               <div class="mb-3">
@@ -32,23 +31,22 @@
                   [(ngModel)]="password"
                   name="password"
                   required
-                >
+                />
               </div>
 
               <div class="d-grid gap-2 mb-3">
-                <button type="submit" class="btn btn-primary btn-lg auth-btn" >
-                  Login
-                </button>
+                <button type="submit" class="btn btn-primary btn-lg auth-btn">Login</button>
               </div>
 
               <div class="text-center">
                 <a href="#" class="text-decoration-none forgot-link">Forgot password?</a>
               </div>
 
-              <hr class="my-4">
+              <hr class="my-4" />
 
               <div class="text-center">
-                <p class="mb-0">Don't have an account?
+                <p class="mb-0">
+                  Don't have an account?
                   <a href="/register" class="text-decoration-none register-link">Sign up</a>
                 </p>
               </div>
