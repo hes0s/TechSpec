@@ -11,7 +11,7 @@ import {
   where,
 } from '@angular/fire/firestore';
 import { inject, Injectable } from '@angular/core';
-import { ItemModel } from '../models/ItemModel';
+import { Category, ItemModel } from '../models/ItemModel';
 import { Observable } from 'rxjs';
 import { OrderModel } from '../models/OrderModel';
 
@@ -27,9 +27,9 @@ export class DataService {
   }
   addProduct(items: ItemModel) {
     const productsRef = collection(this.firestore, 'products');
-
     return addDoc(productsRef, {
       name: items.name,
+      category: items.category,
       description: items.description,
       imageUrl: items.imageUrl,
       price: items.price,
@@ -57,5 +57,19 @@ export class DataService {
     const ordersRef = collection(this.firestore, 'orders');
     const q = query(ordersRef, where('userId', '==', userEmail));
     return collectionData(q, { idField: 'id' }) as Observable<OrderModel[]>;
+  }
+
+  getCategories(): Observable<Category[]> {
+    const ref = collection(this.firestore, 'categories');
+    return collectionData(ref, { idField: 'id' }) as Observable<Category[]>;
+  }
+
+  addCategory(name: string): Promise<void> {
+    const ref = collection(this.firestore, 'categories');
+    return addDoc(ref, { name }).then(() => {});
+  }
+
+  deleteCategory(id: string): Promise<void> {
+    return deleteDoc(doc(this.firestore, 'categories', id));
   }
 }

@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { DataService } from '../../../data/services/data-service';
-import { ItemModel } from '../../../data/models/ItemModel';
+import { Category, ItemModel } from '../../../data/models/ItemModel';
 import { ItemSpec } from '../../../data/models/ItemModel';
 import { ItemSection } from '../../../data/models/ItemModel';
 import { FormsModule } from '@angular/forms';
@@ -16,53 +16,57 @@ import { getAuth } from '@angular/fire/auth';
 })
 export class Body {
   private auth = inject(AuthService);
-  islogged: boolean = false;
   private dataService = inject(DataService);
 
-  products: ItemModel[] = [];
+  newCategoryName: string = '';
+  isEditing: boolean = false;
+  islogged: boolean = false;
 
+  categories: Category[] = [];
+  products: ItemModel[] = [];
   productForm: ItemModel = {
     id: '',
     name: '',
+    category: '',
     description: '',
     price: 0,
     imageUrl: '',
     sections: [],
   };
 
-  isEditing: boolean = false;
-
   ngOnInit() {
     this.getUser();
     this.loadProducts();
+    this.loadCategories();
   }
 
-  loadProducts() {
-    this.dataService.getAlldata_products().subscribe({
-      next: (products) => {
-        this.products = products;
-      },
-      error: (err) => {
-        console.error('Eroare la încărcare:', err);
-      },
-    });
-  }
-
+  // Sections - Specs Create Remove
   addSection() {
     this.productForm.sections.push({ name: '', specs: [] });
   }
   removeSection(si: number) {
     this.productForm.sections.splice(si, 1);
   }
-
   addSpec(si: number) {
     this.productForm.sections[si].specs.push({ key: '', value: '' });
   }
-
   removeSpec(si: number, ki: number) {
     this.productForm.sections[si].specs.splice(ki, 1);
   }
 
+  // Categories section
+  loadCategories() {
+    this.dataService.getCategories().subscribe((c) => (this.categories = c));
+  }
+  addCategory() {
+    if (!this.newCategoryName.trim()) return;
+    this.dataService.addCategory(this.newCategoryName).then(() => (this.newCategoryName = ''));
+  }
+  deleteCategory(id: string) {
+    this.dataService.deleteCategory(id);
+  }
+
+  //Product CRUD
   addProduct() {
     this.dataService
       .addProduct(this.productForm)
@@ -74,12 +78,10 @@ export class Body {
         alert('Eroare: ' + error.message);
       });
   }
-
   editProduct(product: ItemModel) {
     this.isEditing = true;
     this.productForm = { ...product };
   }
-
   updateProduct() {
     const { id, ...productData } = this.productForm;
 
@@ -92,7 +94,6 @@ export class Body {
         alert('Eroare: ' + error.message);
       });
   }
-
   deleteProduct(id: string) {
     if (confirm('Sigur vrei să ștergi acest produs?')) {
       this.dataService
@@ -103,11 +104,11 @@ export class Body {
         });
     }
   }
-
   resetForm() {
     this.productForm = {
       id: '',
       name: '',
+      category: '',
       description: '',
       price: 0,
       imageUrl: '',
@@ -115,7 +116,6 @@ export class Body {
     };
     this.isEditing = false;
   }
-
   saveProduct() {
     if (this.isEditing) {
       this.updateProduct();
@@ -123,7 +123,18 @@ export class Body {
       this.addProduct();
     }
   }
+  loadProducts() {
+    this.dataService.getAlldata_products().subscribe({
+      next: (products) => {
+        this.products = products;
+      },
+      error: (err) => {
+        console.error('Eroare la încărcare:', err);
+      },
+    });
+  }
 
+  //User Info
   getUser() {
     this.auth.getStatus().subscribe((user) => {
       if (user !== null && user.email === 'cusnircristi161@gmail.com') {

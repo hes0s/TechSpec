@@ -9,4 +9,11 @@ h3 {
 }
 .card {
   background: var(--bg-card);
+  border: 1px solid gray;
+}
+.badge {
+  color: var(--text);
+}
+.btn-close {
+  background-color: var(--text);
 }
