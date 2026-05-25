@@ -5,17 +5,19 @@
   --border: #eeeeee;
   --surface: #f5f5f5;
   --card-bg: #ffffff;
+  --input-bg: #aaaaaa;
   --hero-bg: linear-gradient(to right, #f0f4ff, #fafafa);
   --promo-bg: #f9f9f9;
 }
 
-[data-theme="dark"] {
+[data-theme='dark'] {
   --bg: #0f0f0f;
   --text: #f0f0f0;
   --text-muted: #aaaaaa;
   --border: #2a2a2a;
   --surface: #111111;
   --card-bg: #1a1a1a;
+  --input-bg: #1a1a1a;
   --hero-bg: linear-gradient(to right, #1a1f2e, #111111);
   --promo-bg: #161616;
 }
@@ -24,5 +26,7 @@ body {
   background-color: var(--bg);
   color: var(--text);
   font-family: 'Segoe UI', sans-serif;
-  transition: background 0.2s, color 0.2s;
+  transition:
+    background 0.2s,
+    color 0.2s;
 }

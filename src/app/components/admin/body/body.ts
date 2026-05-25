@@ -1,12 +1,10 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { DataService } from '../../../data/services/data-service';
 import { Category, ItemModel } from '../../../data/models/ItemModel';
-import { ItemSpec } from '../../../data/models/ItemModel';
-import { ItemSection } from '../../../data/models/ItemModel';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../data/services/auth-service';
-import { getAuth } from '@angular/fire/auth';
+import { OrderModel } from '../../../data/models/OrderModel';
 
 @Component({
   selector: 'app-admin-body',
@@ -21,7 +19,8 @@ export class Body {
   newCategoryName: string = '';
   isEditing: boolean = false;
   islogged: boolean = false;
-
+  activeTab: string = 'products';
+  allOrders: OrderModel[] = [];
   categories: Category[] = [];
   products: ItemModel[] = [];
   productForm: ItemModel = {
@@ -38,8 +37,24 @@ export class Body {
     this.getUser();
     this.loadProducts();
     this.loadCategories();
+    this.loadAllOrders();
+  }
+  loadAllOrders() {
+    this.dataService.getAllOrders().subscribe((orders) => (this.allOrders = orders));
   }
 
+  updateOrderStatus(id: string, status: string) {
+    this.dataService.updateOrderStatus(id, status);
+  }
+  deleteOrder(id: string) {
+    if (confirm('Șterge comanda?')) {
+      this.dataService.deleteOrder(id);
+    }
+  }
+  toDate(timestamp: any): Date {
+    if (timestamp?.toDate) return timestamp.toDate();
+    return new Date(timestamp);
+  }
   // Sections - Specs Create Remove
   addSection() {
     this.productForm.sections.push({ name: '', specs: [] });

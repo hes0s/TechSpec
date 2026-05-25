@@ -5,11 +5,12 @@ import { DataService } from '../../../data/services/data-service';
 import { AuthService } from '../../../data/services/auth-service';
 import { LocalStorageService } from '../../../data/services/local-storage-service';
 import { ItemModel } from '../../../data/models/ItemModel';
-import { loadBundle } from '@angular/fire/firestore';
+import { FormsModule } from '@angular/forms';
+import { Category } from '../../../data/models/ItemModel';
 
 @Component({
   selector: 'app-catalog-body',
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './body.html',
   styleUrl: './body.css',
 })
@@ -19,12 +20,18 @@ export class Body {
   private data = inject(DataService);
   private localS = inject(LocalStorageService);
   private router = inject(Router);
-
+  categories: Category[] = [];
+  selectedCategory: string = '';
+  searchQuery: string = '';
+  sortOption: string = '';
+  minPrice: number = 0;
+  maxPrice: number = 9999;
   islogged: boolean = false;
 
   ngOnInit() {
     this.getStatus();
     this.getData();
+    this.data.getCategories().subscribe((c) => (this.categories = c));
   }
   goToLogin(event: Event) {
     event.preventDefault();
@@ -57,5 +64,38 @@ export class Body {
         console.log('error fetch data', err);
       },
     });
+  }
+
+  get filteredItems(): ItemModel[] {
+    let result = this.items;
+
+    // Căutare
+    if (this.searchQuery.trim()) {
+      result = result.filter((i) => i.name.toLowerCase().includes(this.searchQuery.toLowerCase()));
+    }
+
+    // Categorie
+    if (this.selectedCategory) {
+      result = result.filter((i) => i.category === this.selectedCategory);
+    }
+
+    // Preț
+    result = result.filter((i) => i.price >= this.minPrice && i.price <= this.maxPrice);
+
+    // Sortare
+    if (this.sortOption === 'price_asc') result = [...result].sort((a, b) => a.price - b.price);
+    if (this.sortOption === 'price_desc') result = [...result].sort((a, b) => b.price - a.price);
+    if (this.sortOption === 'name_asc')
+      result = [...result].sort((a, b) => a.name.localeCompare(b.name));
+
+    return result;
+  }
+
+  resetFilters() {
+    this.selectedCategory = '';
+    this.searchQuery = '';
+    this.sortOption = '';
+    this.minPrice = 0;
+    this.maxPrice = 9999;
   }
 }

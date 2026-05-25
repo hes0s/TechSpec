@@ -8,7 +8,7 @@ h3 {
   color: var(--text);
 }
 .card {
-  background: var(--bg-card);
+  background: var(--bg-card) !important;
   border: 1px solid gray;
 }
 .badge {
@@ -16,4 +16,74 @@ h3 {
 }
 .btn-close {
   background-color: var(--text);
+}
+.form-control,
+.form-select,
+textarea.form-control {
+  background-color: var(--input-bg) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--border) !important;
+}
+
+.form-control:focus,
+.form-select:focus,
+textarea.form-control:focus {
+  background-color: var(--input-bg) !important;
+  color: var(--text) !important;
+  border-color: #0078ff !important;
+  box-shadow: none !important;
+}
+
+.form-control::placeholder,
+textarea.form-control::placeholder {
+  color: var(--text) !important;
+  opacity: 0.4;
+}
+
+.table {
+  color: var(--text) !important;
+  background: var(--bg-card) !important;
+}
+
+.table thead th {
+  border-color: var(--border) !important;
+  background: var(--bg-card) !important;
+  color: var(--text) !important;
+}
+
+.table tbody td {
+  border-color: var(--border) !important;
+  background: var(--bg-card) !important;
+  color: var(--text) !important;
+}
+
+.admin-tabs {
+  display: flex;
+  gap: 8px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0;
+}
+
+.tab-btn {
+  padding: 10px 20px;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  font-size: 14px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: all 0.2s;
+  opacity: 0.6;
+}
+
+.tab-btn:hover {
+  opacity: 1;
+}
+
+.tab-btn.active {
+  border-bottom-color: #0078ff;
+  color: #0078ff;
+  opacity: 1;
+  font-weight: 600;
 }

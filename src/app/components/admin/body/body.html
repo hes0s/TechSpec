@@ -1,5 +1,33 @@
 @if (islogged) {
+<div class="admin-tabs mb-4">
+  <button
+    type="button"
+    class="tab-btn"
+    [class.active]="activeTab === 'products'"
+    (click)="activeTab = 'products'"
+  >
+    📦 Produse
+  </button>
+  <button
+    type="button"
+    class="tab-btn"
+    [class.active]="activeTab === 'categories'"
+    (click)="activeTab = 'categories'"
+  >
+    🗂️ Categorii
+  </button>
+  <button
+    type="button"
+    class="tab-btn"
+    [class.active]="activeTab === 'orders'"
+    (click)="activeTab = 'orders'"
+  >
+    🛒 Comenzi
+  </button>
+</div>
+
 <div class="container mt-4">
+  @if (activeTab === 'products'){
   <h2 class="text-head pb-4">Gestionare Produse</h2>
 
   <div class="card mb-4">
@@ -116,7 +144,7 @@
       </form>
     </div>
   </div>
-
+  } @if (activeTab === 'categories'){
   <div class="card mb-4">
     <div class="card-body">
       <h3>Categorii</h3>
@@ -145,7 +173,7 @@
       </div>
     </div>
   </div>
-
+  } @if (activeTab === 'products'){
   <div class="card">
     <div class="card-body">
       <div class="tableWithProducts">
@@ -181,6 +209,58 @@
       </div>
     </div>
   </div>
+  } @if (activeTab === 'orders') {
+  <div class="card">
+    <div class="card-body">
+      <h3>Comenzi</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Client</th>
+            <th>Total</th>
+            <th>Status</th>
+            <th>Data</th>
+            <th>Acțiuni</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (order of allOrders; track order.id) {
+          <tr>
+            <td style="font-size: 11px; opacity: 0.6">{{ order.id }}</td>
+            <td>{{ order.userId }}</td>
+            <td>{{ order.total }}$</td>
+            <td>
+              <span
+                class="badge"
+                [style.background]="order.status === 'PENDING' ? '#f0a500' :
+                                            order.status === 'DELIVERED' ? '#28a745' : '#0078ff'"
+              >
+                {{ order.status }}
+              </span>
+            </td>
+            <td style="font-size: 13px">{{ toDate(order.orderDate) | date:'dd MMM yyyy' }}</td>
+            <td>
+              <select
+                class="form-select form-select-sm"
+                (change)="updateOrderStatus(order.id!, $any($event.target).value)"
+                [value]="order.status"
+              >
+                <option value="PENDING">PENDING</option>
+                <option value="PROCESSING">PROCESSING</option>
+                <option value="SHIPPED">SHIPPED</option>
+                <option value="DELIVERED">DELIVERED</option>
+                <option value="CANCELLED">CANCELLED</option>
+              </select>
+              <button class="btn btn-sm btn-danger" (click)="deleteOrder(order.id!)">🗑️</button>
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+  }
 </div>
 } @else {
 <p>Accesul interzis</p>

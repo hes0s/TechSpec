@@ -1,30 +1,98 @@
-<h2 class="page-title">Product Catalog</h2>
+<div class="catalog-layout">
+  <!-- SIDEBAR -->
+  <div class="sidebar-wrapper">
+    <aside class="filters-sidebar">
+      <div class="sidebar-header">
+        <span>Filtre</span>
+        <button type="button" class="reset-btn" (click)="resetFilters()">Resetează</button>
+      </div>
 
-@if (items.length === 0) {
-  <div>
-    <p>No products available.</p>
+      <!-- Căutare -->
+      <div class="filter-group">
+        <label>Caută</label>
+        <input
+          type="text"
+          [(ngModel)]="searchQuery"
+          placeholder="Nume produs..."
+          class="filter-input"
+        />
+      </div>
+
+      <!-- Categorii -->
+      <div class="filter-group">
+        <label>Categorie</label>
+        <div class="category-list">
+          <button
+            type="button"
+            class="cat-btn"
+            [class.active]="selectedCategory === ''"
+            (click)="selectedCategory = ''"
+          >
+            Toate
+          </button>
+          @for (cat of categories; track cat.id) {
+          <button
+            type="button"
+            class="cat-btn"
+            [class.active]="selectedCategory === cat.name"
+            (click)="selectedCategory = cat.name"
+          >
+            {{ cat.name }}
+          </button>
+          }
+        </div>
+      </div>
+
+      <!-- Preț -->
+      <div class="filter-group">
+        <label>Preț</label>
+        <div class="price-inputs">
+          <input type="number" [(ngModel)]="minPrice" class="filter-input" placeholder="Min" />
+          <span>—</span>
+          <input type="number" [(ngModel)]="maxPrice" class="filter-input" placeholder="Max" />
+        </div>
+      </div>
+
+      <!-- Sortare -->
+      <div class="filter-group">
+        <label>Sortare</label>
+        <select [(ngModel)]="sortOption" class="filter-input">
+          <option value="">Implicit</option>
+          <option value="price_asc">Preț crescător</option>
+          <option value="price_desc">Preț descrescător</option>
+          <option value="name_asc">Nume A–Z</option>
+        </select>
+      </div>
+    </aside>
   </div>
-}
+  <!-- PRODUSE -->
+  <div class="products-area">
+    <h2 class="page-title">Product Catalog</h2>
+    <p class="results-count">{{ filteredItems.length }} produse găsite</p>
 
-@if (items.length > 0) {
-  <section class="products row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-    @for (item of items; track $index) {
-      <div class="col">
-        <a [routerLink]="['/product', item.id]" class="text-decoration-none text-dark">
-        <div class="product-card card h-100 text-center p-3">
-          <img width="198" height="198" [src]="item.imageUrl" alt="{{ item.name }}" class="card-img-top" />
+    @if (filteredItems.length === 0) {
+    <div>
+      <p>No products available.</p>
+    </div>
+    } @if (filteredItems.length > 0) {
+    <section class="products-grid">
+      @for (item of filteredItems; track item.id) {
+      <a [routerLink]="['/product', item.id]" class="text-decoration-none">
+        <div class="product-card">
+          <img [src]="item.imageUrl" alt="{{ item.name }}" />
           <div class="card-body">
-            <h3 class="card-title fs-5">{{ item.name }}</h3>
-            <p class="price fw-bold">{{ item.price }}$</p>
+            <h3>{{ item.name }}</h3>
+            <p class="price">{{ item.price }}$</p>
             @if (islogged) {
-            <button class="btn btn-primary" (click)="add_Produt_to_Cart($event, item)">Add to Cart</button>
-            }@else{
-            <button class="btn btn-primary" (click)="goToLogin($event)">Log In to buy something</button>
+            <button (click)="add_Produt_to_Cart($event, item)">Add to Cart</button>
+            } @else {
+            <button (click)="goToLogin($event)">Log In to buy</button>
             }
           </div>
         </div>
-        </a>
-      </div>
+      </a>
+      }
+    </section>
     }
-  </section>
-}
+  </div>
+</div>

@@ -36,6 +36,15 @@ export class DataService {
       sections: items.sections,
     });
   }
+  getAllOrders(): Observable<OrderModel[]> {
+    const ref = collection(this.firestore, 'orders');
+    return collectionData(ref, { idField: 'id' }) as Observable<OrderModel[]>;
+  }
+
+  updateOrderStatus(id: string, status: string): Promise<void> {
+    const ref = doc(this.firestore, 'orders', id);
+    return updateDoc(ref, { status });
+  }
 
   modifyProduct(id: string, items: Partial<ItemModel>) {
     const productDoc = doc(this.firestore, 'products', id);
@@ -52,6 +61,10 @@ export class DataService {
   addOrder(order: OrderModel): Promise<any> {
     const ordersRef = collection(this.firestore, 'orders');
     return addDoc(ordersRef, order);
+  }
+  deleteOrder(id: string) {
+    const ordersRef = collection(this.firestore, 'orders');
+    return deleteDoc(doc(this.firestore, 'orders', id));
   }
   getUserOrders(userEmail: string): Observable<OrderModel[]> {
     const ordersRef = collection(this.firestore, 'orders');
